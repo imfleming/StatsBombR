@@ -5,7 +5,7 @@ StatsBombFreeLineups <- function(MatchesDF = "ALL", Parallel = T){
   if(Parallel == T){
     if(MatchesDF == "ALL"){
       Comp <- FreeCompetitions()
-      Matches2 <- FreeMatches(Comp$competition_id)
+      Matches2 <- FreeMatches(Comp)
 
       cl <- makeCluster(detectCores())
       registerDoParallel(cl)
@@ -35,7 +35,7 @@ StatsBombFreeLineups <- function(MatchesDF = "ALL", Parallel = T){
   }  else { #Begin Else, parallel == F
     if(MatchesDF == "ALL"){
       Comp <- FreeCompetitions()
-      Matches2 <- FreeMatches(Comp$competition_id)
+      Matches2 <- FreeMatches(Comp)
       for(i in 1:length(Matches2$match_id)){
         events <- get.lineupsFree(Matches2[i,])
         events.df <- bind_rows(events.df, events)
